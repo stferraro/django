@@ -1,0 +1,29 @@
+{% extends 'pokemon/base.html' %}
+
+{% block title %}Buscar Pokémon{% endblock %}
+
+{% block content %}
+<h2>Buscar Pokémon</h2>
+<form method="get">
+    <label for="name">Nombre del Pokémon:</label>
+    <input type="text" id="name" name="name" value="{{ request.GET.name }}">
+    <button type="submit">Buscar</button>
+</form>
+
+{% if pokemon %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{ pokemon.sprites.front_default }}" class="card-img-top" alt="{{ pokemon.name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ pokemon.name|title }}</h5>
+            <p class="card-text"><strong>Habilidades:</strong></p>
+            <ul class="list-group list-group-flush">
+                {% for ability in pokemon.abilities %}
+                    <li class="list-group-item">{{ ability.ability.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <p>URL de la imagen: {{ pokemon.sprites.front_default }}</p> <!-- Para verificar la URL -->
+{% endif %}
+{% endblock %}
+

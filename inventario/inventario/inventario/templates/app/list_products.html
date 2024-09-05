@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Lista de Productos</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                {{ product.name }} - Precio: {{ product.price }} - Stock: {{ product.stock }}
+                <!-- Enlace para modificar el producto -->
+                <a href="{% url 'edit_product' product.id %}" class="btn btn-primary">Modificar Producto</a>
+                <!-- Enlace para eliminar el producto -->
+                <a href="{% url 'delete_product' product.id %}" class="btn btn-danger">Eliminar Producto</a>
+            </li>
+        {% empty %}
+            <li>No hay productos disponibles.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Enlace para cerrar sesión -->
+    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+
+    <!-- Formulario oculto que se envía al hacer clic en el enlace de cerrar sesión -->
+    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}
+
+

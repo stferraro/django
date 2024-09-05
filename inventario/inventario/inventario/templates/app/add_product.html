@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Agregar Producto{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Agregar Producto</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+     <!-- Enlace para cerrar sesión -->
+     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+
+     <!-- Formulario oculto que se envía al hacer clic en el enlace de cerrar sesión -->
+     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+         {% csrf_token %}
+     </form>
+</div>
+{% endblock %}
